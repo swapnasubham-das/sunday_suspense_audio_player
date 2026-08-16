@@ -71,7 +71,11 @@ export default function TonightsPick({
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2">
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold font-bengali text-amber-300 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '6s' }} />
-                সর্বশেষ নির্বাচিত গল্প (Latest Release)
+                {isThisPlaying
+                  ? 'এখন চলছে (Now Playing)'
+                  : isSelected
+                  ? 'নির্বাচিত নাটক (Selected Story)'
+                  : 'সর্বশেষ নির্বাচিত গল্প (Featured Story)'}
               </span>
               <span className="text-xs font-bengali text-gray-300 px-2.5 py-1 rounded-full bg-white/10 border border-white/10">
                 {story.genreBn}

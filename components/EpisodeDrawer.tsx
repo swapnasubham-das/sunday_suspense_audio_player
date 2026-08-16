@@ -194,7 +194,7 @@ export default function EpisodeDrawer({
               <p className="text-xs">অন্য কোনো শব্দ দিয়ে আবার চেষ্টা করুন</p>
             </div>
           ) : (
-            <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
               {visibleStories.map((story, idx) => {
                 const isSelected = currentStory?.id === story.id;
                 const isBookmarked = bookmarks.includes(story.id);
@@ -327,7 +327,7 @@ export default function EpisodeDrawer({
 
               {/* Load more indicator */}
               {displayLimit < filteredStories.length && (
-                <div className="text-center pt-3 pb-6">
+                <div className="text-center pt-3 pb-6 md:col-span-2">
                   <button
                     onClick={() => setDisplayLimit(prev => Math.min(filteredStories.length, prev + 50))}
                     className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bengali text-xs font-semibold flex items-center gap-2 mx-auto border border-white/10 transition-colors"
@@ -337,7 +337,7 @@ export default function EpisodeDrawer({
                   </button>
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>

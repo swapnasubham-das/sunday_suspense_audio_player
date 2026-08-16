@@ -133,7 +133,7 @@ export default function PlayerBar({
   return (
     <div className="fixed bottom-0 left-0 right-0 z-30 p-2 sm:p-4 select-none pointer-events-auto safe-bottom">
       {/* Responsive Console */}
-      <div className="max-w-7xl mx-auto rounded-2xl sm:rounded-3xl glass-panel bg-[#14120e]/95 hover:bg-[#14120e]/98 backdrop-blur-2xl border border-[#3d3322] shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-2 sm:px-5 sm:py-3 transition-all duration-300">
+      <div className="max-w-7xl 2xl:max-w-[1700px] mx-auto rounded-2xl sm:rounded-3xl glass-panel bg-[#14120e]/95 hover:bg-[#14120e]/98 backdrop-blur-2xl border border-[#3d3322] shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-2 sm:px-5 sm:py-3 transition-all duration-300">
         
         {/* Top: Full-Width Scrubber Track */}
         <div className="w-full relative px-1 pt-0.5 sm:pt-1 pb-0.5">

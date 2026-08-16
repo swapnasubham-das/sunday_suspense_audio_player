@@ -145,8 +145,8 @@ export default function Header({
 
   return (
     <header className="relative z-20 w-full select-none glass-panel bg-black/75 backdrop-blur-2xl border-b border-white/10 shadow-2xl safe-top">
-      {/* Main Top Header Bar */}
-      <div className="w-full px-2.5 xs:px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-4">
+      {/* Main Top Header Bar Container */}
+      <div className="w-full max-w-7xl 2xl:max-w-[1700px] mx-auto px-2.5 xs:px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-4">
         {/* 1. Left: Brand & Tagline + Live Listeners */}
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-shrink">
           <div className="w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shadow-lg flex-shrink-0">
