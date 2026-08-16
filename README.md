@@ -91,7 +91,6 @@ sunday_suspense_audio_player/
 │   ├── HeroBackground.tsx          # Dynamic atmospheric background
 │   ├── KeyboardShortcutsModal.tsx  # Shortcuts helper modal
 │   ├── PlayerBar.tsx               # Bottom playback controls & scrubber
-│   ├── ResumeBanner.tsx            # "Resume where you left off" prompt
 │   ├── ShareModal.tsx              # Deep link & timestamp sharing
 │   ├── SleepTimerModal.tsx         # Sleep timer selection
 │   ├── SoundscapeModal.tsx         # Ambient sound generator controls

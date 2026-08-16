@@ -99,7 +99,7 @@ export default function SoundscapeModal({
           <button
             onClick={onToggleEnabled}
             className={`w-12 h-6 rounded-full transition-colors relative p-0.5 ${
-              isEnabled ? 'bg-amber-500' : 'bg-white/20'
+              isEnabled ? 'bg-gradient-accent' : 'bg-white/20'
             }`}
           >
             <div
@@ -128,7 +128,7 @@ export default function SoundscapeModal({
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     isSelected && isEnabled
-                      ? 'bg-amber-500 text-black'
+                      ? 'bg-gradient-accent text-white'
                       : 'bg-white/5 text-gray-400'
                   }`}
                 >

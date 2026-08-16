@@ -21,22 +21,37 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         radio: {
-          dark: "#08080a",
-          card: "rgba(18, 18, 24, 0.75)",
-          border: "rgba(255, 255, 255, 0.08)",
+          dark: "#000000",
+          card: "rgba(24, 24, 24, 0.9)",
+          border: "rgba(255, 255, 255, 0.07)",
           hover: "rgba(255, 255, 255, 0.05)",
         },
+        // Poster-inspired brand red mapped onto the amber scale so every existing
+        // `amber-*` utility class across the app renders as the Sunday Suspense red.
+        amber: {
+          50: "#fef2f2",
+          100: "#fee2e2",
+          200: "#fecaca",
+          300: "#fca5a5",
+          400: "#f87171",
+          500: "#ef4444",
+          600: "#dc2626",
+          700: "#b91c1c",
+          800: "#991b1b",
+          900: "#7f1d1d",
+          950: "#450a0a",
+        },
         genre: {
-          thriller: "#f59e0b",
-          horror: "#10b981",
-          mystery: "#ef4444",
-          novel: "#d97706",
-          adventure: "#06b6d4",
+          thriller: "#dc2626",
+          horror: "#dc2626",
+          mystery: "#2563eb",
+          novel: "#b45309",
+          adventure: "#16a34a",
         }
       },
       fontFamily: {
         bengali: ["var(--font-bengali)", "Tiro Bangla", "Noto Serif Bengali", "serif"],
-        sans: ["var(--font-sans)", "Outfit", "Inter", "sans-serif"],
+        sans: ["var(--font-sans)", "Poppins", "Outfit", "Inter", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
       },
       backdropBlur: {

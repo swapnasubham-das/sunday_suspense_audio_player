@@ -131,10 +131,11 @@ export default function PlayerBar({
   if (!currentStory) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 p-2 sm:p-4 select-none pointer-events-auto safe-bottom">
-      {/* Responsive Console */}
-      <div className="max-w-7xl 2xl:max-w-[1700px] mx-auto rounded-2xl sm:rounded-3xl glass-panel bg-[#14120e]/95 hover:bg-[#14120e]/98 backdrop-blur-2xl border border-[#3d3322] shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-2 sm:px-5 sm:py-3 transition-all duration-300">
-        
+    <div className="fixed bottom-0 left-0 right-0 z-30 select-none pointer-events-auto safe-bottom">
+      {/* Full-Width Flat Spotify-Style Dock */}
+      <div className="w-full bg-black border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)] px-2 sm:px-5 py-1.5 sm:py-2.5 transition-all duration-300">
+        <div className="max-w-7xl 2xl:max-w-[1700px] mx-auto">
+
         {/* Top: Full-Width Scrubber Track */}
         <div className="w-full relative px-1 pt-0.5 sm:pt-1 pb-0.5">
           <div
@@ -142,19 +143,19 @@ export default function PlayerBar({
             onClick={handleProgressBarClick}
             onMouseMove={handleProgressBarMouseMove}
             onMouseLeave={handleProgressBarMouseLeave}
-            className="relative h-2 sm:h-1.5 w-full rounded-full bg-[#352c20] cursor-pointer group py-2 sm:py-1.5 -my-1.5 touch-manipulation"
+            className="relative h-2 sm:h-1.5 w-full rounded-full bg-white/[0.07] cursor-pointer group py-2 sm:py-1.5 -my-1.5 touch-manipulation"
           >
             {/* Background Track */}
-            <div className="relative h-1.5 sm:h-1.5 w-full rounded-full bg-[#352c20] overflow-hidden">
+            <div className="relative h-1.5 sm:h-1.5 w-full rounded-full bg-white/[0.07] overflow-hidden">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 transition-all duration-100 shadow-[0_0_10px_rgba(245,158,11,0.7)]"
+                className="h-full rounded-full bg-gradient-accent transition-all duration-100 shadow-[0_0_10px_var(--genre-glow)]"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
 
             {/* Scrubber Knob */}
             <div
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-amber-200 shadow-md border-2 border-amber-500 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-white shadow-[0_1px_4px_rgba(0,0,0,0.5)] ring-2 ring-[color:var(--genre-accent)] opacity-100 scale-90 sm:scale-75 sm:group-hover:scale-100 transition-transform"
               style={{ left: `${progressPercent}%` }}
             />
 
@@ -175,7 +176,7 @@ export default function PlayerBar({
             <div className="flex items-center gap-1.5 sm:hidden">
               <button
                 onClick={nextSpeed}
-                className="px-1.5 py-0.2 rounded bg-[#251f15] text-amber-300/90 font-mono text-[9px] font-bold border border-amber-900/30"
+                className="px-1.5 py-0.2 rounded bg-white/5 text-amber-300/90 font-mono text-[9px] font-bold border border-white/10"
               >
                 {playbackRate}x
               </button>
@@ -245,14 +246,14 @@ export default function PlayerBar({
             <button
               onClick={onTogglePlay}
               title={isPlaying ? 'Pause' : 'Play'}
-              className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-[#f59e0b] active:bg-[#fbbf24] text-black flex items-center justify-center shadow-[0_0_16px_rgba(245,158,11,0.5)] active:scale-95 transition-all mx-0.5 flex-shrink-0"
+              className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-gradient-accent active:brightness-110 text-white flex items-center justify-center shadow-[0_0_16px_rgba(220,38,38,0.5)] active:scale-95 transition-all mx-0.5 flex-shrink-0"
             >
               {isBuffering ? (
-                <div className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : isPlaying ? (
-                <Pause className="w-4 h-4 xs:w-4.5 xs:h-4.5 fill-black" />
+                <Pause className="w-4 h-4 xs:w-4.5 xs:h-4.5 fill-white" />
               ) : (
-                <Play className="w-4 h-4 xs:w-4.5 xs:h-4.5 fill-black ml-0.5" />
+                <Play className="w-4 h-4 xs:w-4.5 xs:h-4.5 fill-white ml-0.5" />
               )}
             </button>
 
@@ -267,7 +268,7 @@ export default function PlayerBar({
             <button
               onClick={onOpenDrawer}
               title="গল্প তালিকা"
-              className="p-1 xs:p-1.5 rounded-lg bg-[#262017] text-amber-300 border border-amber-500/30 flex items-center justify-center active:scale-95"
+              className="p-1 xs:p-1.5 rounded-lg bg-white/5 text-amber-300 border border-white/10 flex items-center justify-center active:scale-95"
             >
               <ListMusic className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-amber-400" />
             </button>
@@ -369,14 +370,14 @@ export default function PlayerBar({
             <button
               onClick={onTogglePlay}
               title={isPlaying ? 'Pause (Space)' : 'Play (Space)'}
-              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#f59e0b] hover:bg-[#fbbf24] text-black flex items-center justify-center shadow-[0_0_24px_rgba(245,158,11,0.5)] hover:scale-105 active:scale-95 transition-all mx-1 flex-shrink-0"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-accent hover:brightness-110 text-white flex items-center justify-center shadow-[0_0_24px_rgba(220,38,38,0.5)] hover:scale-105 active:scale-95 transition-all mx-1 flex-shrink-0"
             >
               {isBuffering ? (
-                <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : isPlaying ? (
-                <Pause className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-black" />
+                <Pause className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-white" />
               ) : (
-                <Play className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-black ml-0.5" />
+                <Play className="w-5 h-5 sm:w-5.5 sm:h-5.5 fill-white ml-0.5" />
               )}
             </button>
 
@@ -423,7 +424,7 @@ export default function PlayerBar({
             <button
               onClick={nextSpeed}
               title="Playback Speed"
-              className="hidden sm:inline-flex px-2 py-0.5 rounded-lg text-xs font-mono font-bold bg-[#251f15] hover:bg-[#352c20] text-amber-200/90 border border-amber-900/40 transition-all active:scale-95 flex-shrink-0"
+              className="hidden sm:inline-flex px-2 py-0.5 rounded-lg text-xs font-mono font-bold bg-white/5 hover:bg-white/10 text-amber-200/90 border border-white/10 transition-all active:scale-95 flex-shrink-0"
             >
               {playbackRate}x
             </button>
@@ -451,7 +452,7 @@ export default function PlayerBar({
                 step="0.05"
                 value={isMuted ? 0 : volume}
                 onChange={e => onVolumeChange(parseFloat(e.target.value))}
-                className="w-14 lg:w-18 h-1.5 accent-amber-400 cursor-pointer bg-[#352c20] rounded-full"
+                className="w-14 lg:w-18 h-1.5 accent-amber-400 cursor-pointer bg-white/10 rounded-full"
               />
             </div>
 
@@ -481,7 +482,7 @@ export default function PlayerBar({
             <button
               onClick={onOpenDrawer}
               title="গল্প তালিকা"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#262017] hover:bg-[#352c20] text-amber-300 border border-amber-500/30 text-xs font-semibold shadow-md transition-all active:scale-95 flex-shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-amber-300 border border-white/10 text-xs font-semibold shadow-md transition-all active:scale-95 flex-shrink-0"
             >
               <ListMusic className="w-3.5 h-3.5 text-amber-400" />
               <span className="font-bengali">গল্প তালিকা</span>
@@ -491,6 +492,7 @@ export default function PlayerBar({
             </button>
           </div>
 
+        </div>
         </div>
       </div>
     </div>

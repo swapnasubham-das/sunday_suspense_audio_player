@@ -12,6 +12,7 @@ import {
   setLastPlayedStoryId,
 } from '@/lib/resume';
 import { ambientSound } from '@/lib/soundscape';
+import { History, Search as SearchIcon, Sparkle, Compass } from 'lucide-react';
 
 // Components
 import HeroBackground from '@/components/HeroBackground';
@@ -22,8 +23,11 @@ import SoundscapeModal from '@/components/SoundscapeModal';
 import SleepTimerModal from '@/components/SleepTimerModal';
 import ShareModal from '@/components/ShareModal';
 import KeyboardShortcutsModal from '@/components/KeyboardShortcutsModal';
-import ResumeBanner from '@/components/ResumeBanner';
 import YouTubePlayer from '@/components/YouTubePlayer';
+import TonightsPick from '@/components/TonightsPick';
+import StoryShelf from '@/components/StoryShelf';
+import { ToastContainer, useToasts } from '@/components/Toast';
+
 
 export default function Home() {
   // Playback & Story State
@@ -44,7 +48,6 @@ export default function Home() {
   // LocalStorage & Bookmarks
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [playbackPositions, setPlaybackPositions] = useState<Record<string, PlaybackPosition>>({});
-  const [resumePrompt, setResumePrompt] = useState<{ story: Story; pos: PlaybackPosition } | null>(null);
 
   // Soundscape
   const [soundscapeEnabled, setSoundscapeEnabled] = useState<boolean>(false);
@@ -61,6 +64,9 @@ export default function Home() {
   const [isSleepTimerOpen, setIsSleepTimerOpen] = useState<boolean>(false);
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState<boolean>(false);
+
+  // Toast notifications
+  const { toasts, showToast, dismissToast } = useToasts();
 
   // Initialize from LocalStorage & URL parameters on mount
   useEffect(() => {
@@ -97,10 +103,6 @@ export default function Home() {
       const lastStory = getStoryById(lastId);
       if (lastStory) {
         setCurrentStory(lastStory);
-        const lastPos = positions[lastId];
-        if (lastPos && lastPos.positionSec > 20) {
-          setResumePrompt({ story: lastStory, pos: lastPos });
-        }
       }
     }
   }, []);
@@ -122,6 +124,16 @@ export default function Home() {
     if (currentStory && Math.abs(curr - lastSavedTime.current) > 4) {
       lastSavedTime.current = curr;
       savePlaybackPosition(currentStory.id, curr, dur || currentStory.durationSec);
+      // Keep "Continue Listening" shelf & drawer progress bars in sync
+      setPlaybackPositions(prev => ({
+        ...prev,
+        [currentStory.id]: {
+          storyId: currentStory.id,
+          positionSec: Math.floor(curr),
+          durationSec: Math.floor(dur || currentStory.durationSec),
+          updatedAt: Date.now(),
+        },
+      }));
     }
   }, [currentStory]);
 
@@ -131,29 +143,7 @@ export default function Home() {
     setIsPlaying(true);
     setSeekToTime(0);
     setLastPlayedStoryId(story.id);
-
-    // Check if resume position exists
-    const positions = getAllPlaybackPositions();
-    const saved = positions[story.id];
-    if (saved && saved.positionSec > 25 && saved.positionSec < (story.durationSec - 30)) {
-      setResumePrompt({ story, pos: saved });
-    }
   }, []);
-
-  // Handle Resume Prompt
-  const handleResume = () => {
-    if (resumePrompt) {
-      setSeekToTime(resumePrompt.pos.positionSec);
-      setIsPlaying(true);
-      setResumePrompt(null);
-    }
-  };
-
-  const handleRestart = () => {
-    setSeekToTime(0);
-    setIsPlaying(true);
-    setResumePrompt(null);
-  };
 
   // Genre filtering & Open Popup Modal List
   const handleGenreSelect = useCallback((genre: Genre) => {
@@ -164,6 +154,38 @@ export default function Home() {
   const currentQueue = useMemo(() => {
     return searchStories('', activeGenre, bookmarks);
   }, [activeGenre, bookmarks]);
+
+  // "Continue Listening" — stories with meaningful progress, most recently played first
+  const continueListeningStories = useMemo(() => {
+    const entries = Object.values(playbackPositions).filter(
+      p => p.durationSec > 0 && p.positionSec / p.durationSec > 0.03 && p.positionSec / p.durationSec < 0.92
+    );
+    entries.sort((a, b) => b.updatedAt - a.updatedAt);
+    return entries
+      .slice(0, 14)
+      .map(p => getStoryById(p.storyId))
+      .filter((s): s is Story => !!s);
+  }, [playbackPositions]);
+
+  // Bookmarked / saved shelf
+  const bookmarkedStories = useMemo(() => {
+    return stories.filter(s => bookmarks.includes(s.id)).slice(0, 14);
+  }, [bookmarks]);
+
+  // Latest releases (dataset is ordered newest-first)
+  const latestStories = useMemo(() => stories.slice(0, 14), []);
+
+  // Per-genre discovery rows (excluding synthetic "all"/"bookmarked" tabs)
+  const genreShelfConfig = useMemo(
+    () => GENRES_CONFIG.filter(g => g.id !== 'all' && g.id !== 'bookmarked'),
+    []
+  );
+  const genreShelves = useMemo(() => {
+    return genreShelfConfig.map(g => ({
+      genre: g,
+      items: stories.filter(s => s.genre === g.id).slice(0, 14),
+    }));
+  }, [genreShelfConfig]);
 
   // Track Next & Previous
   const handleNext = useCallback(() => {
@@ -214,8 +236,13 @@ export default function Home() {
 
   // Bookmarking
   const handleToggleBookmark = (storyId: string) => {
+    const wasBookmarked = bookmarks.includes(storyId);
     const updated = toggleBookmarkStorage(storyId);
     setBookmarks(updated);
+    showToast(
+      wasBookmarked ? 'পছন্দের তালিকা থেকে সরানো হয়েছে' : 'পছন্দের তালিকায় যোগ করা হয়েছে',
+      'bookmark'
+    );
   };
 
   // Soundscape toggles
@@ -223,9 +250,11 @@ export default function Home() {
     if (soundscapeEnabled) {
       ambientSound.stop();
       setSoundscapeEnabled(false);
+      showToast('আবহ শব্দ বন্ধ করা হয়েছে', 'sound');
     } else {
       ambientSound.start(soundscapeType, soundscapeVolume);
       setSoundscapeEnabled(true);
+      showToast('আবহ শব্দ চালু করা হয়েছে', 'sound');
     }
   };
 
@@ -253,6 +282,7 @@ export default function Home() {
     setSleepTimerMinutes(minutes);
 
     if (minutes !== null && minutes > 0) {
+      showToast(`${minutes} মিনিট পর ঘুমের টাইমার সক্রিয় হবে`, 'sleep');
       const endTime = Date.now() + minutes * 60 * 1000;
       sleepTimerIntervalRef.current = setInterval(() => {
         const remainingMs = endTime - Date.now();
@@ -326,7 +356,7 @@ export default function Home() {
   }, [handleNext, handlePrevious, currentTime, duration]);
 
   return (
-    <main className="relative h-[100dvh] w-full flex flex-col justify-between overflow-hidden select-none">
+    <main className="relative h-[100dvh] w-full flex flex-col overflow-hidden select-none">
       {/* Full-Bleed 100% Background Artwork */}
       <HeroBackground genre={activeGenre} isPlaying={isPlaying} />
 
@@ -361,19 +391,94 @@ export default function Home() {
         sleepTimerMinutes={sleepTimerMinutes}
       />
 
-      {/* Resume Banner Prompt */}
-      {resumePrompt && (
-        <ResumeBanner
-          story={resumePrompt.story}
-          savedPosition={resumePrompt.pos}
-          onResume={handleResume}
-          onRestart={handleRestart}
-          onDismiss={() => setResumePrompt(null)}
-        />
-      )}
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
-      {/* Center Stage: Cinematic Open View Background */}
-      <div className="relative z-10 flex-1 flex items-center justify-center pointer-events-none" />
+      {/* Scrollable Content: Now Playing spotlight + Continue Listening + Genre discovery rows */}
+      <div className="relative z-10 flex-1 overflow-y-auto overscroll-contain scrollbar-none">
+        <div className="flex flex-col gap-6 sm:gap-8 pt-4 sm:pt-6 pb-[132px] sm:pb-[118px]">
+          {currentStory && (
+            <TonightsPick
+              story={currentStory}
+              currentPlayingStory={currentStory}
+              isPlaying={isPlaying}
+              isBookmarked={bookmarks.includes(currentStory.id)}
+              isFeatured={currentStory.id === tonightsPick?.id}
+              onPlay={handleSelectStory}
+              onToggleBookmark={handleToggleBookmark}
+              onOpenDrawer={() => setIsDrawerOpen(true)}
+              onOpenShare={() => setIsShareOpen(true)}
+            />
+          )}
+
+          {continueListeningStories.length > 0 && (
+            <StoryShelf
+              title="যেখানে ছেড়েছিলেন (Continue Listening)"
+              subtitle="আপনার অসমাপ্ত গল্পগুলো এখান থেকে চালিয়ে যান"
+              icon={History}
+              stories={continueListeningStories}
+              currentStory={currentStory}
+              isPlaying={isPlaying}
+              bookmarks={bookmarks}
+              playbackPositions={playbackPositions}
+              onPlayStory={handleSelectStory}
+              onToggleBookmark={handleToggleBookmark}
+            />
+          )}
+
+          {bookmarkedStories.length > 0 && (
+            <StoryShelf
+              title="পছন্দের গল্পসমূহ (Saved)"
+              icon={Sparkle}
+              stories={bookmarkedStories}
+              currentStory={currentStory}
+              isPlaying={isPlaying}
+              bookmarks={bookmarks}
+              onPlayStory={handleSelectStory}
+              onToggleBookmark={handleToggleBookmark}
+              onOpenAllInDrawer={() => {
+                setActiveGenre('bookmarked');
+                setIsDrawerOpen(true);
+              }}
+            />
+          )}
+
+          <StoryShelf
+            title="সর্বশেষ প্রকাশিত (Latest Releases)"
+            icon={SearchIcon}
+            stories={latestStories}
+            currentStory={currentStory}
+            isPlaying={isPlaying}
+            bookmarks={bookmarks}
+            onPlayStory={handleSelectStory}
+            onToggleBookmark={handleToggleBookmark}
+            onOpenAllInDrawer={() => {
+              setActiveGenre('all');
+              setIsDrawerOpen(true);
+            }}
+          />
+
+          {genreShelves.map(({ genre, items }) =>
+            items.length > 0 ? (
+              <StoryShelf
+                key={genre.id}
+                title={`${genre.labelBn} (${genre.labelEn})`}
+                icon={Compass}
+                stories={items}
+                currentStory={currentStory}
+                isPlaying={isPlaying}
+                bookmarks={bookmarks}
+                onPlayStory={handleSelectStory}
+                onToggleBookmark={handleToggleBookmark}
+                onOpenAllInDrawer={() => {
+                  setActiveGenre(genre.id);
+                  setIsDrawerOpen(true);
+                }}
+              />
+            ) : null
+          )}
+        </div>
+      </div>
 
       {/* Full-Featured Industry-Standard Master Audio Player Bar */}
       <PlayerBar

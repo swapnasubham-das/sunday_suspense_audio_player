@@ -116,13 +116,13 @@ export default function EpisodeDrawer({
                 <ListMusic className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               </div>
               <div>
-                <h2 className="font-bengali font-bold text-base sm:text-xl text-white flex items-center gap-2">
-                  গল্প সংগ্রহশালা
-                  <span className="px-2 py-0.2 sm:px-2.5 sm:py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] sm:text-xs font-mono font-bold border border-amber-500/30">
+                <h2 className="font-sans font-bold text-sm sm:text-base tracking-tight text-white flex items-center gap-2">
+                  <span className="font-bengali">গল্প সংগ্রহশালা</span>
+                  <span className="px-1.5 py-0.2 sm:px-2 sm:py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[9px] sm:text-[10px] font-mono font-bold border border-amber-500/30">
                     {filteredStories.length} টি
                   </span>
                 </h2>
-                <p className="text-[10px] sm:text-xs text-gray-400 font-sans hidden xs:block">
+                <p className="text-[9px] sm:text-[10px] text-gray-400 font-sans tracking-wide hidden xs:block">
                   Sunday Suspense Full 700+ Episodes Collection
                 </p>
               </div>
@@ -146,7 +146,7 @@ export default function EpisodeDrawer({
                 placeholder="গল্পের নাম, লেখক বা চরিত্র দিয়ে খুঁজুন..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-base sm:text-sm font-bengali focus:outline-none focus:border-amber-400/50 focus:bg-white/10 transition-all"
+                className="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm sm:text-xs font-bengali focus:outline-none focus:border-amber-400/50 focus:bg-white/10 transition-all"
               />
               {searchQuery && (
                 <button
@@ -166,7 +166,7 @@ export default function EpisodeDrawer({
                   <button
                     key={g.id}
                     onClick={() => onGenreSelect(g.id)}
-                    className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-bengali font-medium transition-all whitespace-nowrap flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
+                    className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-bengali font-medium transition-all whitespace-nowrap flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
                       isActive
                         ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40 shadow-sm font-bold'
                         : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5'
@@ -190,11 +190,11 @@ export default function EpisodeDrawer({
           {filteredStories.length === 0 ? (
             <div className="text-center py-16 text-gray-500 font-bengali space-y-2">
               <Search className="w-8 h-8 mx-auto text-gray-600 mb-2" />
-              <p className="text-base font-semibold text-gray-400">কোন গল্প পাওয়া যায়নি</p>
-              <p className="text-xs">অন্য কোনো শব্দ দিয়ে আবার চেষ্টা করুন</p>
+              <p className="text-sm font-semibold text-gray-400">কোন গল্প পাওয়া যায়নি</p>
+              <p className="text-[11px]">অন্য কোনো শব্দ দিয়ে আবার চেষ্টা করুন</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
+            <div className="flex flex-col gap-2 sm:gap-2.5">
               {visibleStories.map((story, idx) => {
                 const isSelected = currentStory?.id === story.id;
                 const isBookmarked = bookmarks.includes(story.id);
@@ -208,14 +208,14 @@ export default function EpisodeDrawer({
                   <div
                     key={story.id}
                     onClick={() => onSelectStory(story)}
-                    className={`group relative rounded-2xl p-2.5 sm:p-3.5 border transition-all duration-200 cursor-pointer flex items-center gap-2.5 sm:gap-4 overflow-hidden ${
+                    className={`group relative rounded-2xl p-3 sm:p-4 border transition-all duration-200 cursor-pointer flex items-start gap-3 sm:gap-4 overflow-hidden ${
                       isSelected
                         ? 'bg-amber-500/15 border-amber-500/50 shadow-lg shadow-amber-500/10'
                         : 'bg-white/[0.03] border-white/5 hover:bg-white/[0.07] hover:border-white/15'
                     }`}
                   >
                     {/* Index / Playing Badge */}
-                    <div className="w-5 xs:w-7 text-center text-[10px] xs:text-xs font-mono text-gray-500 group-hover:text-gray-300 flex-shrink-0">
+                    <div className="w-5 xs:w-7 text-center text-[9px] xs:text-[11px] font-mono text-gray-500 group-hover:text-gray-300 flex-shrink-0 self-center mt-1">
                       {isSelected && isPlaying ? (
                         <div className="flex items-end justify-center gap-0.5 h-3.5">
                           <div className="w-0.5 bg-amber-400 rounded-t eq-bar-1" />
@@ -228,7 +228,7 @@ export default function EpisodeDrawer({
                     </div>
 
                     {/* Thumbnail with Play Icon */}
-                    <div className="relative w-14 h-11 xs:w-16 xs:h-12 sm:w-20 sm:h-14 rounded-xl overflow-hidden flex-shrink-0 border border-white/10 shadow-md bg-black/40">
+                    <div className="relative w-20 h-14 xs:w-24 xs:h-16 sm:w-32 sm:h-20 rounded-xl overflow-hidden flex-shrink-0 self-center border border-white/10 shadow-md bg-black/40">
                       <StoryImage
                         src={story.thumbnail}
                         alt={story.title}
@@ -262,33 +262,34 @@ export default function EpisodeDrawer({
                     {/* Story Details */}
                     <div className="flex-1 min-w-0 pr-1">
                       <div className="flex items-center gap-1.5 xs:gap-2 flex-wrap">
-                        <span className="text-[9px] xs:text-[10px] font-bengali px-1.5 xs:px-2 py-0.2 sm:py-0.5 rounded-full bg-white/5 border border-white/5 text-amber-300">
+                        <span className="text-[8px] xs:text-[9px] font-bengali px-1.5 xs:px-2 py-0.2 sm:py-0.5 rounded-full bg-white/5 border border-white/5 text-amber-300">
                           {story.genreBn}
                         </span>
                         {progressPct >= 90 && (
-                          <span className="flex items-center gap-1 text-[9px] xs:text-[10px] text-emerald-400 font-sans">
+                          <span className="flex items-center gap-1 text-[8px] xs:text-[9px] text-emerald-400 font-sans">
                             <CheckCircle2 className="w-3 h-3" /> সমাপ্ত
                           </span>
                         )}
                         {progressPct > 0 && progressPct < 90 && (
-                          <span className="text-[9px] xs:text-[10px] font-mono text-gray-400">
+                          <span className="text-[8px] xs:text-[9px] font-mono text-gray-400">
                             {progressPct}% শোনা হয়েছে
                           </span>
                         )}
                       </div>
 
                       <h3
-                        className={`font-bengali font-bold text-xs xs:text-sm sm:text-base truncate mt-0.5 sm:mt-1 ${
+                        title={story.title}
+                        className={`font-bengali font-bold text-xs sm:text-sm md:text-base leading-snug break-words mt-0.5 sm:mt-1 ${
                           isSelected ? 'text-amber-300' : 'text-white group-hover:text-amber-200'
                         }`}
                       >
                         {story.title}
                       </h3>
 
-                      <div className="flex items-center gap-2 xs:gap-3 mt-0.5 sm:mt-1 text-[10px] sm:text-xs text-gray-400 font-sans flex-wrap">
-                        <span className="flex items-center gap-1 truncate font-bengali text-gray-300 max-w-[110px] xs:max-w-[160px] sm:max-w-none">
+                      <div className="flex items-center gap-2 xs:gap-3 mt-1 sm:mt-1.5 text-[9px] sm:text-[11px] text-gray-400 font-mono flex-wrap">
+                        <span title={story.author} className="flex items-center gap-1 min-w-0 font-bengali text-gray-300">
                           <User className="w-3 h-3 text-amber-400/70 flex-shrink-0" />
-                          <span className="truncate">{story.author}</span>
+                          <span className="break-words">{story.author}</span>
                         </span>
                         <span className="text-gray-600">•</span>
                         <span className="flex items-center gap-1 font-mono text-gray-300 flex-shrink-0">
@@ -297,8 +298,8 @@ export default function EpisodeDrawer({
                         </span>
                         {story.publishedFormatted && (
                           <>
-                            <span className="text-gray-600 hidden sm:inline">•</span>
-                            <span className="text-[11px] font-sans text-gray-400 hidden sm:inline">
+                            <span className="text-gray-600">•</span>
+                            <span className="text-[10px] font-mono text-gray-400">
                               {story.publishedFormatted}
                             </span>
                           </>
@@ -313,7 +314,7 @@ export default function EpisodeDrawer({
                         onToggleBookmark(story.id);
                       }}
                       title={isBookmarked ? 'পছন্দের তালিকা থেকে সরান' : 'পছন্দের তালিকায় রাখুন'}
-                      className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all flex-shrink-0 ${
+                      className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all flex-shrink-0 self-center ${
                         isBookmarked
                           ? 'text-amber-400 bg-amber-500/20 border border-amber-500/30'
                           : 'text-gray-500 hover:text-white hover:bg-white/10'
@@ -327,10 +328,10 @@ export default function EpisodeDrawer({
 
               {/* Load more indicator */}
               {displayLimit < filteredStories.length && (
-                <div className="text-center pt-3 pb-6 md:col-span-2">
+                <div className="text-center pt-3 pb-6">
                   <button
                     onClick={() => setDisplayLimit(prev => Math.min(filteredStories.length, prev + 50))}
-                    className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bengali text-xs font-semibold flex items-center gap-2 mx-auto border border-white/10 transition-colors"
+                    className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bengali text-[11px] font-semibold flex items-center gap-2 mx-auto border border-white/10 transition-colors"
                   >
                     <span>আরও দেখুন (Show More)</span>
                     <ChevronDown className="w-4 h-4" />

@@ -30,8 +30,8 @@ export default function HeroBackground({ genre, isPlaying }: HeroBackgroundProps
 
   return (
     <div className="fixed inset-0 w-full h-full z-0 overflow-hidden pointer-events-none select-none">
-      {/* Base Dark Ground */}
-      <div className="absolute inset-0 bg-[#0a0a0e]" />
+      {/* Base Spotify Black Ground */}
+      <div className="absolute inset-0 bg-black" />
 
       {/* Previous image for seamless crossfade */}
       {prevImg && (
@@ -39,37 +39,25 @@ export default function HeroBackground({ genre, isPlaying }: HeroBackgroundProps
           className={`absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-in-out ${
             isTransitioning ? 'opacity-0' : 'opacity-100'
           }`}
-          style={{ backgroundImage: `url(${prevImg})` }}
+          style={{ backgroundImage: `url(${prevImg})`, opacity: isTransitioning ? 0 : 0.18 }}
         />
       )}
 
-      {/* Current background image with 100% full clarity and visibility */}
+      {/* Current background image kept subtle — Spotify-style color wash, not a dominant photo */}
       <div
-        className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out transform ${
-          isPlaying ? 'scale-[1.02]' : 'scale-100'
-        } opacity-100`}
-        style={{
-          backgroundImage: `url(${currentImg})`,
-          transitionProperty: 'transform, opacity',
-          transitionDuration: '10s, 0.7s',
-        }}
+        className="absolute inset-0 bg-cover bg-center opacity-[0.18] transition-opacity duration-1000 ease-out"
+        style={{ backgroundImage: `url(${currentImg})` }}
       />
 
-      {/* Retro Paper Grain Noise Texture Overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
+      {/* Heavy dark scrim so content always reads clearly on top */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/85 to-black" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(0,0,0,0.6)_75%)]" />
 
-      {/* Minimal Edge Vignette to keep text readable while keeping 90%+ background unobstructed */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#070709]/80 via-transparent to-[#070709]/40" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(7,7,9,0.35)_100%)]" />
-
-      {/* Dynamic subtle ambient genre bloom */}
+      {/* Subtle brand-green ambient bloom at the top, like a Spotify "now playing" wash */}
       <div
-        className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-3/4 h-64 rounded-full blur-[140px] opacity-15 transition-colors duration-1000"
+        className={`absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-72 rounded-full blur-[160px] transition-all duration-1000 ${
+          isPlaying ? 'opacity-25' : 'opacity-15'
+        }`}
         style={{ backgroundColor: activeConfig.color }}
       />
     </div>

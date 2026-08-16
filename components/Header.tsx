@@ -144,7 +144,7 @@ export default function Header({
   const isLatestPlaying = latestStory && currentStory?.id === latestStory.id && isPlaying;
 
   return (
-    <header className="relative z-20 w-full select-none glass-panel bg-black/75 backdrop-blur-2xl border-b border-white/10 shadow-2xl safe-top">
+    <header className="relative z-20 w-full select-none bg-black border-b border-white/10 safe-top">
       {/* Main Top Header Bar Container */}
       <div className="w-full max-w-7xl 2xl:max-w-[1700px] mx-auto px-2.5 xs:px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-4">
         {/* 1. Left: Brand & Tagline + Live Listeners */}
@@ -186,7 +186,7 @@ export default function Header({
                     onOpenDrawer();
                   }}
                   className={`px-3 py-1 rounded-full text-xs font-bengali font-medium transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${isActive
-                      ? 'bg-amber-500 text-black font-bold shadow-md shadow-amber-500/20'
+                      ? 'bg-gradient-accent text-white font-bold shadow-md shadow-amber-500/20'
                       : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                 >
@@ -207,15 +207,15 @@ export default function Header({
             <button
               onClick={() => onPlayStory(latestStory)}
               className={`hidden xl:flex items-center gap-2 px-3 py-1 rounded-full glass-panel border transition-all duration-300 shadow-md group flex-shrink-0 active:scale-95 ${isLatestPlaying
-                  ? 'bg-amber-500 text-black border-amber-400 shadow-amber-500/20 font-bold'
+                  ? 'bg-gradient-accent text-white border-amber-400 shadow-amber-500/20 font-bold'
                   : 'bg-black/50 hover:bg-black/70 border-amber-500/40 text-amber-300'
                 }`}
             >
-              <Sparkles className={`w-3.5 h-3.5 ${isLatestPlaying ? 'text-black' : 'text-amber-400'} animate-spin`} style={{ animationDuration: '6s' }} />
+              <Sparkles className={`w-3.5 h-3.5 ${isLatestPlaying ? 'text-white' : 'text-amber-400'} animate-spin`} style={{ animationDuration: '6s' }} />
               <span className="text-xs font-bengali font-bold truncate max-w-[180px]">
                 সর্বশেষ: {latestStory.title}
               </span>
-              <div className={`w-4.5 h-4.5 rounded-full flex items-center justify-center ${isLatestPlaying ? 'bg-black text-amber-400' : 'bg-amber-500 text-black'}`}>
+              <div className={`w-4.5 h-4.5 rounded-full flex items-center justify-center ${isLatestPlaying ? 'bg-black text-amber-400' : 'bg-gradient-accent text-white'}`}>
                 {isLatestPlaying ? <Pause className="w-2.5 h-2.5 fill-current" /> : <Play className="w-2.5 h-2.5 fill-current ml-0.5" />}
               </div>
             </button>
@@ -246,7 +246,7 @@ export default function Header({
             onClick={onOpenSoundscape}
             title="Ambient Soundscape (Rain, Crickets, Vinyl, Wind)"
             className={`p-1.5 xs:p-2 rounded-full glass-panel border transition-all active:scale-95 ${soundscapeActive
-                ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
+                ? 'bg-gradient-accent text-white border-amber-400 shadow-md shadow-amber-500/20'
                 : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
               }`}
           >
@@ -258,7 +258,7 @@ export default function Header({
             onClick={onOpenSleepTimer}
             title="Sleep Timer"
             className={`p-1.5 xs:p-2 rounded-full glass-panel border transition-all active:scale-95 ${sleepTimerMinutes
-                ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
+                ? 'bg-gradient-accent text-white border-amber-400 shadow-md shadow-amber-500/20'
                 : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
               }`}
           >
@@ -299,7 +299,7 @@ export default function Header({
                 onOpenDrawer();
               }}
               className={`px-3 py-1 rounded-full text-xs font-bengali font-medium transition-all duration-200 flex items-center gap-1 whitespace-nowrap flex-shrink-0 active:scale-95 ${isActive
-                  ? 'bg-amber-500 text-black font-bold shadow-md shadow-amber-500/20'
+                  ? 'bg-gradient-accent text-white font-bold shadow-md shadow-amber-500/20'
                   : 'bg-white/5 text-gray-300 hover:text-white border border-white/5'
                 }`}
             >

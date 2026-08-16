@@ -129,7 +129,7 @@ export default function ShareModal({
           />
           <button
             onClick={handleCopy}
-            className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-bengali font-bold flex items-center gap-1.5 transition-colors shadow-md flex-shrink-0"
+            className="px-3 py-1.5 rounded-xl bg-gradient-accent hover:brightness-110 text-white text-xs font-bengali font-bold flex items-center gap-1.5 transition-colors shadow-md flex-shrink-0"
           >
             {copied ? (
               <>

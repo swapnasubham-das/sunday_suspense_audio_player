@@ -85,7 +85,7 @@ def clean_story_title_and_author(title_raw):
             author = auth_bn
             break
             
-    bn_parts = []
+    display_parts = []
     en_parts = []
     
     for p in meaningful:
@@ -98,35 +98,16 @@ def clean_story_title_and_author(title_raw):
         if is_auth:
             continue
             
-        if re.search(r'[\u0980-\u09FF]', p):
-            bn_parts.append(p)
-        else:
+        # Keep every non-author part (Bengali AND English) in original order,
+        # so distinct info like an English episode name isn't silently dropped
+        # just because a Bengali part also exists in the same raw title.
+        display_parts.append(p)
+        if not re.search(r'[\u0980-\u09FF]', p):
             en_parts.append(p)
             
-    display_title = " - ".join(bn_parts) if bn_parts else (" - ".join(en_parts) if en_parts else title_raw)
+    display_title = " - ".join(display_parts) if display_parts else title_raw
     title_en = " - ".join(en_parts) if en_parts else display_title
     
-    # Series prefix cleanup
-    title_lower = title_raw.lower()
-    if 'byomkesh' in title_lower or 'ব্যোমকেশ' in title_raw:
-        if 'ব্যোমকেশ' not in display_title:
-            display_title = f"ব্যোমকেশ: {display_title}"
-    elif 'feluda' in title_lower or 'ফেলুদা' in title_raw:
-        if 'ফেলুদা' not in display_title:
-            display_title = f"ফেলুদা: {display_title}"
-    elif 'taranath' in title_lower or 'তারানাথ' in title_raw:
-        if 'তারানাথ' not in display_title:
-            display_title = f"তারানাথ তান্ত্রিক: {display_title}"
-    elif 'shonku' in title_lower or 'শঙ্কু' in title_raw:
-        if 'শঙ্কু' not in display_title:
-            display_title = f"প্রফেসর শঙ্কু: {display_title}"
-    elif 'kakababu' in title_lower or 'কাকাবাবু' in title_raw:
-        if 'কাকাবাবু' not in display_title:
-            display_title = f"কাকাবাবু: {display_title}"
-    elif 'sherlock' in title_lower or 'শার্লক' in title_raw:
-        if 'শার্লক' not in display_title:
-            display_title = f"শার্লক হোমস: {display_title}"
-            
     return display_title, title_en, author
 
 def classify_genre(title_raw, display_title, author):

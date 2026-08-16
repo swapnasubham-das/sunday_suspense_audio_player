@@ -54,11 +54,11 @@ export function getLatestStory(): Story {
 }
 
 export const GENRES_CONFIG: { id: Genre; labelBn: string; labelEn: string; color: string; bgImage: string }[] = [
-  { id: 'all', labelBn: 'সব গল্প', labelEn: 'All Stories', color: '#f59e0b', bgImage: '/hero/all.png' },
-  { id: 'thriller', labelBn: 'রোমাঞ্চকর', labelEn: 'Thriller', color: '#f59e0b', bgImage: '/hero/all.png' },
-  { id: 'horror', labelBn: 'ভৌতিক', labelEn: 'Horror', color: '#10b981', bgImage: '/hero/all.png' },
-  { id: 'mystery', labelBn: 'গোয়েন্দা', labelEn: 'Mystery', color: '#ef4444', bgImage: '/hero/all.png' },
-  { id: 'novel', labelBn: 'কালজয়ী সাহিত্য', labelEn: 'Classics', color: '#d97706', bgImage: '/hero/all.png' },
-  { id: 'adventure', labelBn: 'অভিযান', labelEn: 'Adventure', color: '#06b6d4', bgImage: '/hero/all.png' },
-  { id: 'bookmarked', labelBn: 'পছন্দের গল্প', labelEn: 'Saved', color: '#eab308', bgImage: '/hero/all.png' },
+  { id: 'all', labelBn: 'সব গল্প', labelEn: 'All Stories', color: '#dc2626', bgImage: '/hero/all.png' },
+  { id: 'thriller', labelBn: 'রোমাঞ্চকর', labelEn: 'Thriller', color: '#dc2626', bgImage: '/hero/all.png' },
+  { id: 'horror', labelBn: 'ভৌতিক', labelEn: 'Horror', color: '#dc2626', bgImage: '/hero/all.png' },
+  { id: 'mystery', labelBn: 'গোয়েন্দা', labelEn: 'Mystery', color: '#2563eb', bgImage: '/hero/all.png' },
+  { id: 'novel', labelBn: 'কালজয়ী সাহিত্য', labelEn: 'Classics', color: '#b45309', bgImage: '/hero/all.png' },
+  { id: 'adventure', labelBn: 'অভিযান', labelEn: 'Adventure', color: '#16a34a', bgImage: '/hero/all.png' },
+  { id: 'bookmarked', labelBn: 'পছন্দের গল্প', labelEn: 'Saved', color: '#1db954', bgImage: '/hero/all.png' },
 ];
