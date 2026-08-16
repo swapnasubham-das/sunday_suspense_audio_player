@@ -144,21 +144,21 @@ export default function Header({
   const isLatestPlaying = latestStory && currentStory?.id === latestStory.id && isPlaying;
 
   return (
-    <header className="relative z-20 w-full select-none glass-panel bg-black/70 backdrop-blur-2xl border-b border-white/10 shadow-2xl safe-top">
+    <header className="relative z-20 w-full select-none glass-panel bg-black/75 backdrop-blur-2xl border-b border-white/10 shadow-2xl safe-top">
       {/* Main Top Header Bar */}
-      <div className="w-full px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+      <div className="w-full px-2.5 xs:px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-4">
         {/* 1. Left: Brand & Tagline + Live Listeners */}
-        <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shadow-lg flex-shrink-0">
-            <RadioTower className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-shrink">
+          <div className="w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shadow-lg flex-shrink-0">
+            <RadioTower className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-amber-400" />
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="font-bengali font-black text-sm sm:text-lg text-white tracking-wide leading-none drop-shadow">
+            <div className="flex items-center gap-1.5 xs:gap-2">
+              <span className="font-bengali font-black text-xs xs:text-sm sm:text-lg text-white tracking-wide leading-none drop-shadow truncate max-w-[110px] xs:max-w-[160px] sm:max-w-none">
                 সানডে সাসপেন্স
               </span>
               {/* Mobile Live Presence Pill */}
-              <div className="flex md:hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-400">
+              <div className="flex md:hidden items-center gap-1 px-1.5 py-0.2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] text-emerald-400 flex-shrink-0">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
@@ -166,7 +166,7 @@ export default function Header({
                 <span className="font-mono font-bold">{listeners}</span>
               </div>
             </div>
-            <p className="font-sans text-[9px] sm:text-[10px] font-semibold text-amber-300/80 tracking-wider uppercase leading-tight mt-0.5">
+            <p className="font-sans text-[8px] sm:text-[10px] font-semibold text-amber-300/80 tracking-wider uppercase leading-tight mt-0.5 truncate">
               By Mirchi Bangla
             </p>
           </div>
@@ -223,7 +223,7 @@ export default function Header({
         </div>
 
         {/* 3. Right: Tools & Library Trigger */}
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <div className="flex items-center gap-1 xs:gap-1.5 sm:gap-2 flex-shrink-0">
           {/* Desktop Time & Date Pill */}
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel bg-black/40 border border-white/10 text-xs text-white font-mono shadow-md">
             <span className="font-bold tracking-wider">{timeStr || '8:00 PM'}</span>
@@ -245,35 +245,35 @@ export default function Header({
           <button
             onClick={onOpenSoundscape}
             title="Ambient Soundscape (Rain, Crickets, Vinyl, Wind)"
-            className={`p-2 rounded-full glass-panel border transition-all active:scale-95 ${soundscapeActive
+            className={`p-1.5 xs:p-2 rounded-full glass-panel border transition-all active:scale-95 ${soundscapeActive
                 ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
                 : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
               }`}
           >
-            <Volume2 className="w-4 h-4" />
+            <Volume2 className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
           </button>
 
           {/* Sleep Timer Button */}
           <button
             onClick={onOpenSleepTimer}
             title="Sleep Timer"
-            className={`p-2 rounded-full glass-panel border transition-all active:scale-95 ${sleepTimerMinutes
+            className={`p-1.5 xs:p-2 rounded-full glass-panel border transition-all active:scale-95 ${sleepTimerMinutes
                 ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
                 : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
               }`}
           >
-            <Moon className="w-4 h-4" />
+            <Moon className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
           </button>
 
           {/* Library Drawer Button */}
           <button
             onClick={onOpenDrawer}
             title="Open Complete Library (712 Stories)"
-            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full glass-panel bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold shadow-md transition-all active:scale-95"
+            className="flex items-center gap-1 px-2 xs:px-2.5 sm:px-3 py-1.5 rounded-full glass-panel bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold shadow-md transition-all active:scale-95"
           >
             <ListMusic className="w-3.5 h-3.5 text-amber-400" />
             <span className="font-bengali hidden xs:inline text-[11px] sm:text-xs">লাইব্রেরি</span>
-            <span className="font-mono text-[10px] sm:text-[11px] px-1 py-0.2 rounded-full bg-amber-500/30 font-bold">712</span>
+            <span className="font-mono text-[9px] xs:text-[10px] sm:text-[11px] px-1 py-0.2 rounded-full bg-amber-500/30 font-bold">712</span>
           </button>
 
           {/* Keyboard Shortcuts (Desktop Only) */}

@@ -208,14 +208,14 @@ export default function EpisodeDrawer({
                   <div
                     key={story.id}
                     onClick={() => onSelectStory(story)}
-                    className={`group relative rounded-2xl p-3 sm:p-3.5 border transition-all duration-200 cursor-pointer flex items-center gap-3 sm:gap-4 ${
+                    className={`group relative rounded-2xl p-2.5 sm:p-3.5 border transition-all duration-200 cursor-pointer flex items-center gap-2.5 sm:gap-4 overflow-hidden ${
                       isSelected
                         ? 'bg-amber-500/15 border-amber-500/50 shadow-lg shadow-amber-500/10'
                         : 'bg-white/[0.03] border-white/5 hover:bg-white/[0.07] hover:border-white/15'
                     }`}
                   >
                     {/* Index / Playing Badge */}
-                    <div className="w-7 text-center text-xs font-mono text-gray-500 group-hover:text-gray-300">
+                    <div className="w-5 xs:w-7 text-center text-[10px] xs:text-xs font-mono text-gray-500 group-hover:text-gray-300 flex-shrink-0">
                       {isSelected && isPlaying ? (
                         <div className="flex items-end justify-center gap-0.5 h-3.5">
                           <div className="w-0.5 bg-amber-400 rounded-t eq-bar-1" />
@@ -228,7 +228,7 @@ export default function EpisodeDrawer({
                     </div>
 
                     {/* Thumbnail with Play Icon */}
-                    <div className="relative w-16 h-12 sm:w-20 sm:h-14 rounded-xl overflow-hidden flex-shrink-0 border border-white/10 shadow-md bg-black/40">
+                    <div className="relative w-14 h-11 xs:w-16 xs:h-12 sm:w-20 sm:h-14 rounded-xl overflow-hidden flex-shrink-0 border border-white/10 shadow-md bg-black/40">
                       <StoryImage
                         src={story.thumbnail}
                         alt={story.title}
@@ -242,9 +242,9 @@ export default function EpisodeDrawer({
                         }`}
                       >
                         {isSelected && isPlaying ? (
-                          <Pause className="w-5 h-5 text-amber-400 fill-amber-400" />
+                          <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400" />
                         ) : (
-                          <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                          <Play className="w-4 h-4 sm:w-5 sm:h-5 text-white fill-white ml-0.5" />
                         )}
                       </div>
 
@@ -260,38 +260,38 @@ export default function EpisodeDrawer({
                     </div>
 
                     {/* Story Details */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bengali px-2 py-0.5 rounded-full bg-white/5 border border-white/5 text-amber-300">
+                    <div className="flex-1 min-w-0 pr-1">
+                      <div className="flex items-center gap-1.5 xs:gap-2 flex-wrap">
+                        <span className="text-[9px] xs:text-[10px] font-bengali px-1.5 xs:px-2 py-0.2 sm:py-0.5 rounded-full bg-white/5 border border-white/5 text-amber-300">
                           {story.genreBn}
                         </span>
                         {progressPct >= 90 && (
-                          <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-sans">
+                          <span className="flex items-center gap-1 text-[9px] xs:text-[10px] text-emerald-400 font-sans">
                             <CheckCircle2 className="w-3 h-3" /> সমাপ্ত
                           </span>
                         )}
                         {progressPct > 0 && progressPct < 90 && (
-                          <span className="text-[10px] font-mono text-gray-400">
+                          <span className="text-[9px] xs:text-[10px] font-mono text-gray-400">
                             {progressPct}% শোনা হয়েছে
                           </span>
                         )}
                       </div>
 
                       <h3
-                        className={`font-bengali font-bold text-sm sm:text-base truncate mt-1 ${
+                        className={`font-bengali font-bold text-xs xs:text-sm sm:text-base truncate mt-0.5 sm:mt-1 ${
                           isSelected ? 'text-amber-300' : 'text-white group-hover:text-amber-200'
                         }`}
                       >
                         {story.title}
                       </h3>
 
-                      <div className="flex items-center gap-3 mt-1 text-xs text-gray-400 font-sans">
-                        <span className="flex items-center gap-1 truncate font-bengali text-gray-300">
-                          <User className="w-3 h-3 text-amber-400/70" />
-                          {story.author}
+                      <div className="flex items-center gap-2 xs:gap-3 mt-0.5 sm:mt-1 text-[10px] sm:text-xs text-gray-400 font-sans flex-wrap">
+                        <span className="flex items-center gap-1 truncate font-bengali text-gray-300 max-w-[110px] xs:max-w-[160px] sm:max-w-none">
+                          <User className="w-3 h-3 text-amber-400/70 flex-shrink-0" />
+                          <span className="truncate">{story.author}</span>
                         </span>
                         <span className="text-gray-600">•</span>
-                        <span className="flex items-center gap-1 font-mono text-gray-300">
+                        <span className="flex items-center gap-1 font-mono text-gray-300 flex-shrink-0">
                           <Clock className="w-3 h-3 text-gray-500" />
                           {story.durationFormatted}
                         </span>
@@ -313,13 +313,13 @@ export default function EpisodeDrawer({
                         onToggleBookmark(story.id);
                       }}
                       title={isBookmarked ? 'পছন্দের তালিকা থেকে সরান' : 'পছন্দের তালিকায় রাখুন'}
-                      className={`p-2 rounded-xl transition-all ${
+                      className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all flex-shrink-0 ${
                         isBookmarked
                           ? 'text-amber-400 bg-amber-500/20 border border-amber-500/30'
                           : 'text-gray-500 hover:text-white hover:bg-white/10'
                       }`}
                     >
-                      <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+                      <Bookmark className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
                     </button>
                   </div>
                 );

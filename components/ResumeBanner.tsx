@@ -28,7 +28,7 @@ export default function ResumeBanner({
   if (!story || !savedPosition || savedPosition.positionSec <= 15) return null;
 
   return (
-    <div className="fixed top-16 sm:top-20 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg px-3 sm:px-4 select-none animate-in fade-in slide-in-from-top-4 duration-300">
+    <div className="fixed top-[88px] sm:top-20 left-1/2 -translate-x-1/2 z-40 w-full max-w-lg px-3 sm:px-4 select-none animate-in fade-in slide-in-from-top-4 duration-300">
       <div className="glass-panel bg-[#0d0e14]/98 rounded-2xl p-2.5 sm:p-3.5 border border-amber-500/40 shadow-2xl shadow-amber-500/15 flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-2.5 sm:gap-3">
         <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
           <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">

@@ -185,13 +185,13 @@ export default function PlayerBar({
         </div>
 
         {/* ================= MOBILE LAYOUT (< sm) ================= */}
-        <div className="flex sm:hidden items-center justify-between gap-2 mt-1 w-full">
+        <div className="flex sm:hidden items-center justify-between gap-1 xs:gap-2 mt-1 w-full overflow-hidden">
           {/* Mobile Track Info */}
           <div
             onClick={onOpenDrawer}
-            className="flex-1 min-w-0 flex items-center gap-2 cursor-pointer group overflow-hidden"
+            className="flex-1 min-w-0 flex items-center gap-1.5 xs:gap-2 cursor-pointer group overflow-hidden pr-0.5"
           >
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 border border-amber-500/30 shadow-md bg-black/50">
+            <div className="relative w-8 h-8 xs:w-10 xs:h-10 rounded-lg xs:rounded-xl overflow-hidden flex-shrink-0 border border-amber-500/30 shadow-md bg-black/50">
               <StoryImage
                 key={currentStory.id}
                 src={currentStory.thumbnail}
@@ -201,75 +201,75 @@ export default function PlayerBar({
                 sizes="40px"
               />
               {isPlaying && (
-                <div className="absolute inset-x-0 bottom-0.5 flex items-end justify-center gap-0.5 h-2.5">
-                  <div className="w-0.5 h-2 bg-amber-400 rounded-full eq-bar-1" />
-                  <div className="w-0.5 h-2.5 bg-amber-400 rounded-full eq-bar-2" />
-                  <div className="w-0.5 h-1.5 bg-amber-400 rounded-full eq-bar-3" />
+                <div className="absolute inset-x-0 bottom-0.5 flex items-end justify-center gap-0.5 h-2">
+                  <div className="w-0.5 h-1.5 bg-amber-400 rounded-full eq-bar-1" />
+                  <div className="w-0.5 h-2 bg-amber-400 rounded-full eq-bar-2" />
+                  <div className="w-0.5 h-1 bg-amber-400 rounded-full eq-bar-3" />
                 </div>
               )}
             </div>
 
             <div className="flex-1 min-w-0">
-              <h3 className="font-bengali font-bold text-xs text-white truncate group-hover:text-amber-300">
+              <h3 className="font-bengali font-bold text-[11px] xs:text-xs text-white truncate group-hover:text-amber-300">
                 {currentStory.title}
               </h3>
-              <p className="text-[10px] font-bengali text-gray-400 truncate mt-0.5">
+              <p className="text-[9px] xs:text-[10px] font-bengali text-gray-400 truncate mt-0.5">
                 {currentStory.author}
               </p>
             </div>
           </div>
 
           {/* Mobile Actions */}
-          <div className="flex items-center gap-1 flex-shrink-0">
+          <div className="flex items-center gap-0.5 xs:gap-1 flex-shrink-0">
             <button
               onClick={onToggleBookmark}
               title={isBookmarked ? 'Remove from Saved' : 'Save Story'}
-              className={`p-1.5 rounded-lg transition-all ${
+              className={`p-1 xs:p-1.5 rounded-lg transition-all ${
                 isBookmarked
                   ? 'text-amber-400 bg-amber-500/20'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+              <Bookmark className={`w-3.5 h-3.5 xs:w-4 xs:h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
             </button>
 
             <button
               onClick={onPrevious}
               title="Previous Track"
-              className="p-1.5 text-gray-300 hover:text-white transition-colors"
+              className="p-1 xs:p-1.5 text-gray-300 hover:text-white transition-colors"
             >
-              <SkipBack className="w-4 h-4" />
+              <SkipBack className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
             </button>
 
             {/* Glowing Golden Play/Pause Circle */}
             <button
               onClick={onTogglePlay}
               title={isPlaying ? 'Pause' : 'Play'}
-              className="w-10 h-10 rounded-full bg-[#f59e0b] active:bg-[#fbbf24] text-black flex items-center justify-center shadow-[0_0_18px_rgba(245,158,11,0.5)] active:scale-95 transition-all mx-0.5 flex-shrink-0"
+              className="w-9 h-9 xs:w-10 xs:h-10 rounded-full bg-[#f59e0b] active:bg-[#fbbf24] text-black flex items-center justify-center shadow-[0_0_16px_rgba(245,158,11,0.5)] active:scale-95 transition-all mx-0.5 flex-shrink-0"
             >
               {isBuffering ? (
-                <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                <div className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />
               ) : isPlaying ? (
-                <Pause className="w-4.5 h-4.5 fill-black" />
+                <Pause className="w-4 h-4 xs:w-4.5 xs:h-4.5 fill-black" />
               ) : (
-                <Play className="w-4.5 h-4.5 fill-black ml-0.5" />
+                <Play className="w-4 h-4 xs:w-4.5 xs:h-4.5 fill-black ml-0.5" />
               )}
             </button>
 
             <button
               onClick={onNext}
               title="Next Track"
-              className="p-1.5 text-gray-300 hover:text-white transition-colors"
+              className="p-1 xs:p-1.5 text-gray-300 hover:text-white transition-colors"
             >
-              <SkipForward className="w-4 h-4" />
+              <SkipForward className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
             </button>
 
             <button
               onClick={onOpenDrawer}
               title="গল্প তালিকা"
-              className="p-1.5 rounded-lg bg-[#262017] text-amber-300 border border-amber-500/30 flex items-center justify-center"
+              className="p-1 xs:p-1.5 rounded-lg bg-[#262017] text-amber-300 border border-amber-500/30 flex items-center justify-center active:scale-95"
             >
-              <ListMusic className="w-4 h-4 text-amber-400" />
+              <ListMusic className="w-3.5 h-3.5 xs:w-4 xs:h-4 text-amber-400" />
             </button>
           </div>
         </div>
