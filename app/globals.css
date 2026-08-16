@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&display=swap');
+
+:root {
+  --background: #070709;
+  --foreground: #f3f4f6;
+  --genre-accent: #f59e0b;
+  --genre-glow: rgba(245, 158, 11, 0.25);
+  --genre-subtle: rgba(245, 158, 11, 0.08);
+}
+
+[data-genre="thriller"] {
+  --genre-accent: #f59e0b;
+  --genre-glow: rgba(245, 158, 11, 0.35);
+  --genre-subtle: rgba(245, 158, 11, 0.1);
+}
+
+[data-genre="horror"] {
+  --genre-accent: #10b981;
+  --genre-glow: rgba(16, 185, 129, 0.35);
+  --genre-subtle: rgba(16, 185, 129, 0.1);
+}
+
+[data-genre="mystery"] {
+  --genre-accent: #ef4444;
+  --genre-glow: rgba(239, 68, 68, 0.35);
+  --genre-subtle: rgba(239, 68, 68, 0.1);
+}
+
+[data-genre="novel"] {
+  --genre-accent: #d97706;
+  --genre-glow: rgba(217, 119, 6, 0.35);
+  --genre-subtle: rgba(217, 119, 6, 0.1);
+}
+
+[data-genre="adventure"] {
+  --genre-accent: #06b6d4;
+  --genre-glow: rgba(6, 182, 212, 0.35);
+  --genre-subtle: rgba(6, 182, 212, 0.1);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.font-bengali {
+  font-family: 'Noto Serif Bengali', 'Tiro Bangla', serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glassmorphism primitives */
+.glass-panel {
+  background: rgba(13, 14, 18, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(22, 24, 30, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 14, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--genre-accent);
+}
+
+/* Range input scrubber custom styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px var(--genre-accent);
+  cursor: pointer;
+  margin-top: -5px;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.25);
+  background: var(--genre-accent);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+/* Equalizer animations */
+@keyframes eq-bar {
+  0% { height: 3px; }
+  100% { height: 16px; }
+}
+
+.eq-bar-1 { animation: eq-bar 0.7s ease-in-out infinite alternate; }
+.eq-bar-2 { animation: eq-bar 0.9s ease-in-out infinite alternate 0.15s; }
+.eq-bar-3 { animation: eq-bar 0.5s ease-in-out infinite alternate 0.3s; }
+.eq-bar-4 { animation: eq-bar 0.8s ease-in-out infinite alternate 0.2s; }

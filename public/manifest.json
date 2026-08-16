@@ -1,0 +1,21 @@
+{
+  "name": "রাত জাগা (Raat Jaga) — Sunday Suspense Radio",
+  "short_name": "রাত জাগা",
+  "description": "Late-night Bengali suspense radio streaming Sunday Suspense audio stories with ambient soundscapes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070709",
+  "theme_color": "#070709",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
