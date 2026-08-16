@@ -146,7 +146,7 @@ export default function EpisodeDrawer({
                 placeholder="গল্পের নাম, লেখক বা চরিত্র দিয়ে খুঁজুন..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-xs sm:text-sm font-bengali focus:outline-none focus:border-amber-400/50 focus:bg-white/10 transition-all"
+                className="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-base sm:text-sm font-bengali focus:outline-none focus:border-amber-400/50 focus:bg-white/10 transition-all"
               />
               {searchQuery && (
                 <button

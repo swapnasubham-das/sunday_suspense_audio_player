@@ -30,6 +30,9 @@ export default function SleepTimerModal({
       <div className="absolute inset-0" onClick={onClose} />
 
       <div className="relative z-10 w-full max-w-sm max-h-[90dvh] overflow-y-auto rounded-3xl glass-panel bg-[#0c0d12]/98 border border-white/15 p-4 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-200">
+        {/* Mobile Drag Handle */}
+        <div className="w-10 sm:hidden h-1 rounded-full bg-white/20 mx-auto mb-3" />
+
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
