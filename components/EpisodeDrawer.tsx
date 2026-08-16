@@ -105,24 +105,24 @@ export default function EpisodeDrawer({
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Drawer Container */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto h-[88vh] sm:h-[84vh] rounded-t-3xl glass-panel bg-[#0b0c10]/95 border-t border-x border-white/15 flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
+      <div className="relative z-10 w-full max-w-5xl mx-auto h-[92dvh] sm:h-[84vh] rounded-t-3xl glass-panel bg-[#0b0c10]/98 border-t border-x border-white/15 flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
         {/* Drag Handle & Header */}
-        <div className="p-4 sm:p-6 pb-3 border-b border-white/10 flex-shrink-0 bg-black/40">
-          <div className="w-12 h-1 rounded-full bg-white/20 mx-auto mb-3" />
+        <div className="p-3 sm:p-6 pb-2.5 sm:pb-3 border-b border-white/10 flex-shrink-0 bg-black/40">
+          <div className="w-10 sm:w-12 h-1 rounded-full bg-white/25 mx-auto mb-2 sm:mb-3" />
 
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center">
-                <ListMusic className="w-5 h-5 text-amber-400" />
+          <div className="flex items-center justify-between gap-3 sm:gap-4">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
+                <ListMusic className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               </div>
               <div>
-                <h2 className="font-bengali font-bold text-lg sm:text-xl text-white flex items-center gap-2">
-                  গল্প সংগ্রহশালা (Episode Library)
-                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-bold border border-amber-500/30">
-                    {filteredStories.length} টি গল্প
+                <h2 className="font-bengali font-bold text-base sm:text-xl text-white flex items-center gap-2">
+                  গল্প সংগ্রহশালা
+                  <span className="px-2 py-0.2 sm:px-2.5 sm:py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] sm:text-xs font-mono font-bold border border-amber-500/30">
+                    {filteredStories.length} টি
                   </span>
                 </h2>
-                <p className="text-xs text-gray-400 font-sans">
+                <p className="text-[10px] sm:text-xs text-gray-400 font-sans hidden xs:block">
                   Sunday Suspense Full 700+ Episodes Collection
                 </p>
               </div>
@@ -130,23 +130,23 @@ export default function EpisodeDrawer({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-colors active:scale-95"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Search Bar & Genre Filters */}
-          <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
             {/* Search Input */}
             <div className="relative flex-1">
               <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="গল্পের নাম, লেখক বা চরিত্র দিয়ে খুঁজুন (যেমনঃ ব্যোমকেশ, ফেলুদা, তারানাথ, সত্যজিৎ রায়)..."
+                placeholder="গল্পের নাম, লেখক বা চরিত্র দিয়ে খুঁজুন..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-xs sm:text-sm font-bengali focus:outline-none focus:border-amber-400/50 focus:bg-white/10 transition-all"
+                className="w-full pl-10 pr-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-xs sm:text-sm font-bengali focus:outline-none focus:border-amber-400/50 focus:bg-white/10 transition-all"
               />
               {searchQuery && (
                 <button
@@ -166,9 +166,9 @@ export default function EpisodeDrawer({
                   <button
                     key={g.id}
                     onClick={() => onGenreSelect(g.id)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bengali font-medium transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                    className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-bengali font-medium transition-all whitespace-nowrap flex items-center gap-1.5 flex-shrink-0 active:scale-95 ${
                       isActive
-                        ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40 shadow-sm'
+                        ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40 shadow-sm font-bold'
                         : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5'
                     }`}
                   >
@@ -185,7 +185,7 @@ export default function EpisodeDrawer({
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-2.5 pb-28"
+          className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-2 sm:space-y-2.5 pb-36"
         >
           {filteredStories.length === 0 ? (
             <div className="text-center py-16 text-gray-500 font-bengali space-y-2">

@@ -326,7 +326,7 @@ export default function Home() {
   }, [handleNext, handlePrevious, currentTime, duration]);
 
   return (
-    <main className="relative h-screen w-full flex flex-col justify-between overflow-hidden select-none">
+    <main className="relative h-[100dvh] w-full flex flex-col justify-between overflow-hidden select-none">
       {/* Full-Bleed 100% Background Artwork */}
       <HeroBackground genre={activeGenre} isPlaying={isPlaying} />
 

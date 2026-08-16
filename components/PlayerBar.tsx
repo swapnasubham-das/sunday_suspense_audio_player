@@ -131,21 +131,21 @@ export default function PlayerBar({
   if (!currentStory) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 p-2 sm:p-4 select-none pointer-events-auto">
-      {/* Fixed Geometry Console (Zero Layout Shifts Regardless of Title Length) */}
-      <div className="max-w-7xl mx-auto rounded-2xl sm:rounded-3xl glass-panel bg-[#14120e]/95 hover:bg-[#14120e]/98 backdrop-blur-2xl border border-[#3d3322] shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-2.5 sm:px-5 sm:py-3 transition-all duration-300">
+    <div className="fixed bottom-0 left-0 right-0 z-30 p-2 sm:p-4 select-none pointer-events-auto safe-bottom">
+      {/* Responsive Console */}
+      <div className="max-w-7xl mx-auto rounded-2xl sm:rounded-3xl glass-panel bg-[#14120e]/95 hover:bg-[#14120e]/98 backdrop-blur-2xl border border-[#3d3322] shadow-[0_10px_40px_rgba(0,0,0,0.8)] p-2 sm:px-5 sm:py-3 transition-all duration-300">
         
         {/* Top: Full-Width Scrubber Track */}
-        <div className="w-full relative px-1 pt-1 pb-0.5">
+        <div className="w-full relative px-1 pt-0.5 sm:pt-1 pb-0.5">
           <div
             ref={progressBarRef}
             onClick={handleProgressBarClick}
             onMouseMove={handleProgressBarMouseMove}
             onMouseLeave={handleProgressBarMouseLeave}
-            className="relative h-1.5 w-full rounded-full bg-[#352c20] cursor-pointer group py-1.5 -my-1.5"
+            className="relative h-2 sm:h-1.5 w-full rounded-full bg-[#352c20] cursor-pointer group py-2 sm:py-1.5 -my-1.5 touch-manipulation"
           >
             {/* Background Track */}
-            <div className="relative h-1.5 w-full rounded-full bg-[#352c20] overflow-hidden">
+            <div className="relative h-1.5 sm:h-1.5 w-full rounded-full bg-[#352c20] overflow-hidden">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 transition-all duration-100 shadow-[0_0_10px_rgba(245,158,11,0.7)]"
                 style={{ width: `${progressPercent}%` }}
@@ -154,7 +154,7 @@ export default function PlayerBar({
 
             {/* Scrubber Knob */}
             <div
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-amber-200 shadow-md border-2 border-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-amber-200 shadow-md border-2 border-amber-500 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
               style={{ left: `${progressPercent}%` }}
             />
 
@@ -170,17 +170,115 @@ export default function PlayerBar({
           </div>
 
           {/* Time Indicators directly below the scrubber */}
-          <div className="flex items-center justify-between text-[11px] font-mono text-gray-400 mt-1 px-0.5">
+          <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-gray-400 mt-0.5 sm:mt-1 px-0.5">
             <span>{formatTime(currentTime)}</span>
+            <div className="flex items-center gap-1.5 sm:hidden">
+              <button
+                onClick={nextSpeed}
+                className="px-1.5 py-0.2 rounded bg-[#251f15] text-amber-300/90 font-mono text-[9px] font-bold border border-amber-900/30"
+              >
+                {playbackRate}x
+              </button>
+            </div>
             <span>{formatTime(effectiveDuration)}</span>
           </div>
         </div>
 
-        {/* Main Controls Row with Fixed Width Symmetrical Anchors */}
-        <div className="flex items-center justify-between gap-2 sm:gap-4 mt-1 w-full">
+        {/* ================= MOBILE LAYOUT (< sm) ================= */}
+        <div className="flex sm:hidden items-center justify-between gap-2 mt-1 w-full">
+          {/* Mobile Track Info */}
+          <div
+            onClick={onOpenDrawer}
+            className="flex-1 min-w-0 flex items-center gap-2 cursor-pointer group overflow-hidden"
+          >
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 border border-amber-500/30 shadow-md bg-black/50">
+              <StoryImage
+                key={currentStory.id}
+                src={currentStory.thumbnail}
+                alt={currentStory.title}
+                genre={currentStory.genre}
+                className="object-cover"
+                sizes="40px"
+              />
+              {isPlaying && (
+                <div className="absolute inset-x-0 bottom-0.5 flex items-end justify-center gap-0.5 h-2.5">
+                  <div className="w-0.5 h-2 bg-amber-400 rounded-full eq-bar-1" />
+                  <div className="w-0.5 h-2.5 bg-amber-400 rounded-full eq-bar-2" />
+                  <div className="w-0.5 h-1.5 bg-amber-400 rounded-full eq-bar-3" />
+                </div>
+              )}
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <h3 className="font-bengali font-bold text-xs text-white truncate group-hover:text-amber-300">
+                {currentStory.title}
+              </h3>
+              <p className="text-[10px] font-bengali text-gray-400 truncate mt-0.5">
+                {currentStory.author}
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <button
+              onClick={onToggleBookmark}
+              title={isBookmarked ? 'Remove from Saved' : 'Save Story'}
+              className={`p-1.5 rounded-lg transition-all ${
+                isBookmarked
+                  ? 'text-amber-400 bg-amber-500/20'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-400' : ''}`} />
+            </button>
+
+            <button
+              onClick={onPrevious}
+              title="Previous Track"
+              className="p-1.5 text-gray-300 hover:text-white transition-colors"
+            >
+              <SkipBack className="w-4 h-4" />
+            </button>
+
+            {/* Glowing Golden Play/Pause Circle */}
+            <button
+              onClick={onTogglePlay}
+              title={isPlaying ? 'Pause' : 'Play'}
+              className="w-10 h-10 rounded-full bg-[#f59e0b] active:bg-[#fbbf24] text-black flex items-center justify-center shadow-[0_0_18px_rgba(245,158,11,0.5)] active:scale-95 transition-all mx-0.5 flex-shrink-0"
+            >
+              {isBuffering ? (
+                <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+              ) : isPlaying ? (
+                <Pause className="w-4.5 h-4.5 fill-black" />
+              ) : (
+                <Play className="w-4.5 h-4.5 fill-black ml-0.5" />
+              )}
+            </button>
+
+            <button
+              onClick={onNext}
+              title="Next Track"
+              className="p-1.5 text-gray-300 hover:text-white transition-colors"
+            >
+              <SkipForward className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={onOpenDrawer}
+              title="গল্প তালিকা"
+              className="p-1.5 rounded-lg bg-[#262017] text-amber-300 border border-amber-500/30 flex items-center justify-center"
+            >
+              <ListMusic className="w-4 h-4 text-amber-400" />
+            </button>
+          </div>
+        </div>
+
+        {/* ================= TABLET & DESKTOP LAYOUT (>= sm) ================= */}
+        <div className="hidden sm:flex items-center justify-between gap-2 sm:gap-4 mt-1 w-full">
           
-          {/* ================= LEFT: FIXED WIDTH TRACK INFO (Never causes layout shift) ================= */}
-          <div className="w-[180px] sm:w-[240px] md:w-[290px] flex-shrink-0 flex items-center gap-3 overflow-hidden">
+          {/* ================= LEFT: FIXED WIDTH TRACK INFO ================= */}
+          <div className="w-[200px] md:w-[260px] lg:w-[290px] flex-shrink-0 flex items-center gap-3 overflow-hidden">
             {/* Artwork Thumbnail */}
             <div
               onClick={onOpenDrawer}
@@ -233,7 +331,7 @@ export default function PlayerBar({
             </button>
           </div>
 
-          {/* ================= CENTER: PERFECTLY CENTERED FIXED TRANSPORT CONTROLS ================= */}
+          {/* ================= CENTER: PERFECTLY CENTERED TRANSPORT CONTROLS ================= */}
           <div className="flex-1 min-w-0 flex items-center justify-center gap-2 sm:gap-3.5 mx-auto">
             {/* Shuffle */}
             <button
@@ -320,7 +418,7 @@ export default function PlayerBar({
           </div>
 
           {/* ================= RIGHT: FIXED WIDTH TOOLS & "গল্প তালিকা" BUTTON ================= */}
-          <div className="w-[180px] sm:w-[240px] md:w-[290px] flex-shrink-0 flex items-center justify-end gap-2 sm:gap-3">
+          <div className="w-[200px] md:w-[260px] lg:w-[290px] flex-shrink-0 flex items-center justify-end gap-2 sm:gap-3">
             {/* Speed Pill */}
             <button
               onClick={nextSpeed}

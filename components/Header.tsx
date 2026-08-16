@@ -144,136 +144,175 @@ export default function Header({
   const isLatestPlaying = latestStory && currentStory?.id === latestStory.id && isPlaying;
 
   return (
-    <header className="relative z-20 w-full px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 select-none glass-panel bg-black/60 backdrop-blur-2xl border-b border-white/10 shadow-2xl">
-      {/* 1. Left: Brand & Tagline */}
-      <div className="flex items-center gap-3 flex-shrink-0">
-        <div className="w-9 h-9 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shadow-lg flex-shrink-0">
-          <RadioTower className="w-5 h-5 text-amber-400" />
-        </div>
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="font-bengali font-black text-base sm:text-lg text-white tracking-wide leading-none drop-shadow">
-              সানডে সাসপেন্স
-            </span>
+    <header className="relative z-20 w-full select-none glass-panel bg-black/70 backdrop-blur-2xl border-b border-white/10 shadow-2xl safe-top">
+      {/* Main Top Header Bar */}
+      <div className="w-full px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+        {/* 1. Left: Brand & Tagline + Live Listeners */}
+        <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shadow-lg flex-shrink-0">
+            <RadioTower className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
           </div>
-          <p className="font-sans text-[10px] font-semibold text-amber-300/80 tracking-wider uppercase leading-tight mt-0.5">
-            By Mirchi Bangla
-          </p>
-        </div>
-      </div>
-
-      {/* 2. Center: Genre Switcher Pills & Latest Release Pill (Single Unified Row) */}
-      <div className="flex items-center gap-2 overflow-x-auto max-w-[55vw] sm:max-w-none scrollbar-none py-0.5">
-        {/* Genre Switcher Pills */}
-        <div className="flex items-center gap-1 p-1 rounded-full glass-panel bg-black/50 border border-white/15 shadow-md flex-shrink-0">
-          {GENRES_CONFIG.map(g => {
-            const isActive = activeGenre === g.id;
-            return (
-              <button
-                key={g.id}
-                onClick={() => {
-                  onGenreSelect(g.id);
-                  onOpenDrawer();
-                }}
-                className={`px-3 py-1 rounded-full text-xs font-bengali font-medium transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${isActive
-                    ? 'bg-amber-500 text-black font-bold shadow-md shadow-amber-500/20'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
-                  }`}
-              >
-                {g.id === 'bookmarked' && <Bookmark className="w-3 h-3" />}
-                <span>{g.labelBn}</span>
-                {g.id === 'bookmarked' && bookmarksCount > 0 && (
-                  <span className="ml-0.5 px-1.5 py-0.2 text-[10px] rounded-full bg-black/30 text-amber-900 font-mono font-bold">
-                    {bookmarksCount}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="font-bengali font-black text-sm sm:text-lg text-white tracking-wide leading-none drop-shadow">
+                সানডে সাসপেন্স
+              </span>
+              {/* Mobile Live Presence Pill */}
+              <div className="flex md:hidden items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-400">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                <span className="font-mono font-bold">{listeners}</span>
+              </div>
+            </div>
+            <p className="font-sans text-[9px] sm:text-[10px] font-semibold text-amber-300/80 tracking-wider uppercase leading-tight mt-0.5">
+              By Mirchi Bangla
+            </p>
+          </div>
         </div>
 
-        {/* Latest Release Quick Spotlight Pill */}
-        {latestStory && (
+        {/* 2. Center: Desktop Genre Switcher & Latest Spotlight */}
+        <div className="hidden md:flex items-center gap-2 overflow-x-auto scrollbar-none py-0.5">
+          {/* Genre Switcher Pills */}
+          <div className="flex items-center gap-1 p-1 rounded-full glass-panel bg-black/50 border border-white/15 shadow-md flex-shrink-0">
+            {GENRES_CONFIG.map(g => {
+              const isActive = activeGenre === g.id;
+              return (
+                <button
+                  key={g.id}
+                  onClick={() => {
+                    onGenreSelect(g.id);
+                    onOpenDrawer();
+                  }}
+                  className={`px-3 py-1 rounded-full text-xs font-bengali font-medium transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${isActive
+                      ? 'bg-amber-500 text-black font-bold shadow-md shadow-amber-500/20'
+                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                >
+                  {g.id === 'bookmarked' && <Bookmark className="w-3 h-3" />}
+                  <span>{g.labelBn}</span>
+                  {g.id === 'bookmarked' && bookmarksCount > 0 && (
+                    <span className="ml-0.5 px-1.5 py-0.2 text-[10px] rounded-full bg-black/30 text-amber-900 font-mono font-bold">
+                      {bookmarksCount}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Latest Release Quick Spotlight Pill */}
+          {latestStory && (
+            <button
+              onClick={() => onPlayStory(latestStory)}
+              className={`hidden xl:flex items-center gap-2 px-3 py-1 rounded-full glass-panel border transition-all duration-300 shadow-md group flex-shrink-0 active:scale-95 ${isLatestPlaying
+                  ? 'bg-amber-500 text-black border-amber-400 shadow-amber-500/20 font-bold'
+                  : 'bg-black/50 hover:bg-black/70 border-amber-500/40 text-amber-300'
+                }`}
+            >
+              <Sparkles className={`w-3.5 h-3.5 ${isLatestPlaying ? 'text-black' : 'text-amber-400'} animate-spin`} style={{ animationDuration: '6s' }} />
+              <span className="text-xs font-bengali font-bold truncate max-w-[180px]">
+                সর্বশেষ: {latestStory.title}
+              </span>
+              <div className={`w-4.5 h-4.5 rounded-full flex items-center justify-center ${isLatestPlaying ? 'bg-black text-amber-400' : 'bg-amber-500 text-black'}`}>
+                {isLatestPlaying ? <Pause className="w-2.5 h-2.5 fill-current" /> : <Play className="w-2.5 h-2.5 fill-current ml-0.5" />}
+              </div>
+            </button>
+          )}
+        </div>
+
+        {/* 3. Right: Tools & Library Trigger */}
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+          {/* Desktop Time & Date Pill */}
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel bg-black/40 border border-white/10 text-xs text-white font-mono shadow-md">
+            <span className="font-bold tracking-wider">{timeStr || '8:00 PM'}</span>
+            <span className="text-gray-500">•</span>
+            <span className="text-gray-300 text-[11px] font-sans">{dateStr}</span>
+          </div>
+
+          {/* Desktop Live Online Listeners */}
+          <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel bg-black/40 border border-white/10 text-xs text-gray-300 shadow-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="font-mono font-bold text-white text-xs">{listeners}</span>
+            <span className="text-[11px] text-gray-400">online</span>
+          </div>
+
+          {/* Ambient Soundscape Button */}
           <button
-            onClick={() => onPlayStory(latestStory)}
-            className={`hidden xl:flex items-center gap-2 px-3 py-1 rounded-full glass-panel border transition-all duration-300 shadow-md group flex-shrink-0 active:scale-95 ${isLatestPlaying
-                ? 'bg-amber-500 text-black border-amber-400 shadow-amber-500/20 font-bold'
-                : 'bg-black/50 hover:bg-black/70 border-amber-500/40 text-amber-300'
+            onClick={onOpenSoundscape}
+            title="Ambient Soundscape (Rain, Crickets, Vinyl, Wind)"
+            className={`p-2 rounded-full glass-panel border transition-all active:scale-95 ${soundscapeActive
+                ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
+                : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
               }`}
           >
-            <Sparkles className={`w-3.5 h-3.5 ${isLatestPlaying ? 'text-black' : 'text-amber-400'} animate-spin`} style={{ animationDuration: '6s' }} />
-            <span className="text-xs font-bengali font-bold truncate max-w-[180px]">
-              সর্বশেষ: {latestStory.title}
-            </span>
-            <div className={`w-4.5 h-4.5 rounded-full flex items-center justify-center ${isLatestPlaying ? 'bg-black text-amber-400' : 'bg-amber-500 text-black'}`}>
-              {isLatestPlaying ? <Pause className="w-2.5 h-2.5 fill-current" /> : <Play className="w-2.5 h-2.5 fill-current ml-0.5" />}
-            </div>
+            <Volume2 className="w-4 h-4" />
           </button>
-        )}
+
+          {/* Sleep Timer Button */}
+          <button
+            onClick={onOpenSleepTimer}
+            title="Sleep Timer"
+            className={`p-2 rounded-full glass-panel border transition-all active:scale-95 ${sleepTimerMinutes
+                ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
+                : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
+              }`}
+          >
+            <Moon className="w-4 h-4" />
+          </button>
+
+          {/* Library Drawer Button */}
+          <button
+            onClick={onOpenDrawer}
+            title="Open Complete Library (712 Stories)"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full glass-panel bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold shadow-md transition-all active:scale-95"
+          >
+            <ListMusic className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-bengali hidden xs:inline text-[11px] sm:text-xs">লাইব্রেরি</span>
+            <span className="font-mono text-[10px] sm:text-[11px] px-1 py-0.2 rounded-full bg-amber-500/30 font-bold">712</span>
+          </button>
+
+          {/* Keyboard Shortcuts (Desktop Only) */}
+          <button
+            onClick={onOpenShortcuts}
+            title="Keyboard Shortcuts"
+            className="hidden md:flex p-2 rounded-full glass-panel bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border border-white/10 transition-all"
+          >
+            <Keyboard className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      {/* 3. Right: Live Clock, Listeners & Ambient Tools */}
-      <div className="flex items-center gap-2 flex-shrink-0">
-        {/* Time & Date Pill */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel bg-black/40 border border-white/10 text-xs text-white font-mono shadow-md">
-          <span className="font-bold tracking-wider">{timeStr || '8:00 PM'}</span>
-          <span className="text-gray-500">•</span>
-          <span className="text-gray-300 text-[11px] font-sans">{dateStr}</span>
-        </div>
-
-        {/* Live Online Listeners */}
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel bg-black/40 border border-white/10 text-xs text-gray-300 shadow-md">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="font-mono font-bold text-white text-xs">{listeners}</span>
-          <span className="text-[11px] text-gray-400">online</span>
-        </div>
-
-        {/* Ambient Soundscape Button */}
-        <button
-          onClick={onOpenSoundscape}
-          title="Ambient Soundscape (Rain, Crickets, Vinyl, Wind)"
-          className={`p-2 rounded-full glass-panel border transition-all ${soundscapeActive
-              ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
-              : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
-            }`}
-        >
-          <Volume2 className="w-4 h-4" />
-        </button>
-
-        {/* Sleep Timer Button */}
-        <button
-          onClick={onOpenSleepTimer}
-          title="Sleep Timer"
-          className={`p-2 rounded-full glass-panel border transition-all ${sleepTimerMinutes
-              ? 'bg-amber-500 text-black border-amber-400 shadow-md shadow-amber-500/20'
-              : 'bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border-white/10'
-            }`}
-        >
-          <Moon className="w-4 h-4" />
-        </button>
-
-        {/* Full Library Drawer Button */}
-        <button
-          onClick={onOpenDrawer}
-          title="Open Complete Library (712 Stories)"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold shadow-md transition-all active:scale-95"
-        >
-          <ListMusic className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline font-bengali">লাইব্রেরি</span>
-          <span className="font-mono text-[11px]">712</span>
-        </button>
-
-        {/* Keyboard Shortcuts */}
-        <button
-          onClick={onOpenShortcuts}
-          title="Keyboard Shortcuts"
-          className="hidden md:flex p-2 rounded-full glass-panel bg-black/40 text-gray-300 hover:text-white hover:bg-white/10 border border-white/10 transition-all"
-        >
-          <Keyboard className="w-4 h-4" />
-        </button>
+      {/* Mobile Horizontal Genre Carousel Bar */}
+      <div className="flex md:hidden items-center gap-1.5 px-3 py-1.5 overflow-x-auto scrollbar-none border-t border-white/5 bg-black/40">
+        {GENRES_CONFIG.map(g => {
+          const isActive = activeGenre === g.id;
+          return (
+            <button
+              key={g.id}
+              onClick={() => {
+                onGenreSelect(g.id);
+                onOpenDrawer();
+              }}
+              className={`px-3 py-1 rounded-full text-xs font-bengali font-medium transition-all duration-200 flex items-center gap-1 whitespace-nowrap flex-shrink-0 active:scale-95 ${isActive
+                  ? 'bg-amber-500 text-black font-bold shadow-md shadow-amber-500/20'
+                  : 'bg-white/5 text-gray-300 hover:text-white border border-white/5'
+                }`}
+            >
+              {g.id === 'bookmarked' && <Bookmark className="w-3 h-3" />}
+              <span>{g.labelBn}</span>
+              {g.id === 'bookmarked' && bookmarksCount > 0 && (
+                <span className="ml-0.5 px-1.5 py-0.2 text-[9px] rounded-full bg-black/30 text-amber-900 font-mono font-bold">
+                  {bookmarksCount}
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
     </header>
   );

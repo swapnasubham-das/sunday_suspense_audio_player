@@ -7,6 +7,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -37,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bn" className="dark h-full">
-      <body className="bg-[#070709] text-gray-100 h-full w-full overflow-hidden antialiased select-none font-sans">
+      <body className="bg-[#070709] text-gray-100 min-h-[100dvh] h-[100dvh] w-full overflow-hidden antialiased select-none font-sans touch-manipulation">
         {children}
       </body>
     </html>
