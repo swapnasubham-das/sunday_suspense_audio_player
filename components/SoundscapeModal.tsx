@@ -125,6 +125,7 @@ export default function SoundscapeModal({
                     : 'bg-white/[0.03] border-white/5 text-gray-300 hover:bg-white/[0.07] hover:border-white/15'
                 }`}
               >
+                {/* Hello */}
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     isSelected && isEnabled
